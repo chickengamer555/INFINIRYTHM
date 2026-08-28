@@ -1,0 +1,476 @@
+[gd_scene load_steps=13 format=3 uid="uid://da8g4fjlqwwrv"]
+
+[ext_resource type="Script" uid="uid://cwftkg1hjfdnk" path="res://scripts/Visualizer.gd" id="1_visualizer"]
+[ext_resource type="Script" uid="uid://uas8q0ntjd21" path="res://scripts/BackgroundVisualizer.gd" id="2_background"]
+[ext_resource type="Script" path="res://scripts/BulletHellLevelInsane.gd" id="3_level"]
+[ext_resource type="PackedScene" uid="uid://diunepwwafweg" path="res://scenes/GameOverScreen.tscn" id="4_gameover"]
+
+[sub_resource type="Environment" id="Environment_glow"]
+glow_enabled = true
+glow_intensity = 0.3
+glow_strength = 0.6
+glow_bloom = 0.1
+glow_blend_mode = 0
+glow_hdr_scale = 0.2
+glow_map_strength = 0.3
+adjustment_enabled = true
+adjustment_brightness = 1.02
+adjustment_contrast = 1.05
+adjustment_saturation = 1.1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ekg4"]
+bg_color = Color(0, 0, 0.16470589, 1)
+shadow_color = Color(0.29803923, 0.50980395, 0.99215686, 1)
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_HealthBg"]
+bg_color = Color(0.1, 0.1, 0.1, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5, 0.5, 0.5, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0.5, 0.5, 0.5, 0.4)
+shadow_size = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_HealthFill"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1.2, 1.2, 1.2, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_color = Color(1, 1, 1, 0.6)
+shadow_size = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_SlowdownBg"]
+bg_color = Color(0.05, 0.1, 0.15, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3, 0.8, 1.5, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0.3, 0.8, 1.5, 0.6)
+shadow_size = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_SlowdownFill"]
+bg_color = Color(0.4, 1.2, 1.8, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.6, 1.5, 2, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_color = Color(0.3, 0.8, 1.5, 0.8)
+shadow_size = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_SpeedupBg"]
+bg_color = Color(0.15, 0.05, 0.1, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1.5, 0.3, 0.8, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(1.5, 0.3, 0.8, 0.6)
+shadow_size = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_SpeedupFill"]
+bg_color = Color(1.8, 0.4, 1.2, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(2, 0.6, 1.5, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_color = Color(1.5, 0.3, 0.8, 0.8)
+shadow_size = 6
+
+[node name="Visualizer" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_visualizer")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_glow")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="BackgroundLayer" type="Control" parent="."]
+process_mode = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_background")
+
+[node name="ParticleContainer" type="Control" parent="BackgroundLayer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterCircle" type="Control" parent="BackgroundLayer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AmbientEffects" type="Control" parent="BackgroundLayer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WaveformLayer" type="Control" parent="."]
+process_mode = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameplayLayer" type="Control" parent="."]
+process_mode = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_level")
+
+[node name="ShakeNode" type="Node2D" parent="GameplayLayer"]
+
+[node name="PlayerArea" type="Control" parent="GameplayLayer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Player" type="Control" parent="GameplayLayer/PlayerArea"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EnemySpawnZones" type="Control" parent="GameplayLayer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BulletContainer" type="Control" parent="GameplayLayer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BeatIndicators" type="Control" parent="GameplayLayer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameUI" type="Control" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="UI/GameUI"]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 124.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_5ekg4")
+
+[node name="ScoreLabel" type="Label" parent="UI/GameUI"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 65.0
+offset_right = 208.0
+offset_bottom = 95.0
+theme_override_colors/font_color = Color(0.6, 0.9019608, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.3019608, 0.7019608, 1, 0.8)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 20
+text = "Score: 0"
+
+[node name="ComboLabel" type="Label" parent="UI/GameUI"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 92.0
+offset_right = 188.0
+offset_bottom = 122.0
+theme_override_colors/font_color = Color(0.5921569, 0.89411765, 0.99215686, 1)
+theme_override_colors/font_shadow_color = Color(0.3019608, 0.7019608, 1, 0.8)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 20
+text = "Combo: 0x"
+
+[node name="HealthBar" type="ProgressBar" parent="UI/GameUI"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 13.0
+offset_right = 208.0
+offset_bottom = 33.0
+theme_override_styles/background = SubResource("StyleBoxFlat_HealthBg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_HealthFill")
+value = 100.0
+show_percentage = false
+
+[node name="PlaybackLabel" type="Label" parent="UI/GameUI"]
+layout_mode = 0
+offset_left = 426.0
+offset_top = -5.0
+offset_right = 726.0
+offset_bottom = 62.0
+theme_override_colors/font_color = Color(0.6, 0.9019608, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.3019608, 0.7019608, 1, 0.8)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 48
+text = "0:00 / 0:00"
+horizontal_alignment = 1
+
+[node name="HealthLabel" type="Label" parent="UI/GameUI"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 43.0
+offset_right = 108.0
+offset_bottom = 66.0
+theme_override_colors/font_color = Color(0.5803922, 0.8784314, 0.98039216, 1)
+theme_override_colors/font_shadow_color = Color(0.3019608, 0.7019608, 1, 0.8)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 16
+text = "Health: 100"
+
+[node name="FrequencyIndicator" type="Control" parent="UI/GameUI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 70.0
+offset_right = 200.0
+offset_bottom = 110.0
+grow_horizontal = 2
+
+[node name="SlowdownMeter" type="ProgressBar" parent="UI/GameUI"]
+layout_mode = 0
+offset_left = 942.0
+offset_top = 13.0
+offset_right = 1142.0
+offset_bottom = 33.0
+theme_override_styles/background = SubResource("StyleBoxFlat_SlowdownBg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_SlowdownFill")
+value = 100.0
+fill_mode = 1
+show_percentage = false
+
+[node name="SlowdownLabel" type="Label" parent="UI/GameUI"]
+layout_direction = 2
+layout_mode = 0
+offset_left = 941.0
+offset_top = 43.0
+offset_right = 1141.0002
+offset_bottom = 66.0
+theme_override_colors/font_color = Color(0.5803922, 0.8784314, 0.98039216, 1)
+theme_override_colors/font_shadow_color = Color(0.3019608, 0.7019608, 1, 0.8)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 16
+text = "SLOWDOWN (Space)"
+horizontal_alignment = 2
+
+[node name="SpeedupMeter" type="ProgressBar" parent="UI/GameUI"]
+visible = false
+layout_mode = 0
+offset_left = 942.0
+offset_top = 71.0
+offset_right = 1142.0
+offset_bottom = 91.0
+theme_override_styles/background = SubResource("StyleBoxFlat_SpeedupBg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_SpeedupFill")
+value = 100.0
+fill_mode = 1
+show_percentage = false
+
+[node name="SpeedupLabel" type="Label" parent="UI/GameUI"]
+layout_direction = 2
+layout_mode = 0
+offset_left = 1000.0
+offset_top = 71.0
+offset_right = 1141.0
+offset_bottom = 94.0
+theme_override_colors/font_color = Color(0.98039216, 0.5803922, 0.8784314, 1)
+theme_override_colors/font_shadow_color = Color(1, 0.3019608, 0.7019608, 0.8)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 16
+text = "SPEEDUP (Hold Q)"
+horizontal_alignment = 2
+
+[node name="SpeedupTimer" type="Label" parent="UI/GameUI"]
+layout_mode = 0
+offset_left = 941.0
+offset_top = 71.0
+offset_right = 995.0
+offset_bottom = 94.0
+theme_override_colors/font_color = Color(0.98039216, 0.5803922, 0.8784314, 1)
+theme_override_colors/font_shadow_color = Color(1, 0.3019608, 0.7019608, 0.8)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 16
+text = "0.0"
+
+[node name="PauseMenu" type="Control" parent="."]
+process_mode = 3
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DimBackground" type="ColorRect" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -100.0
+offset_right = 150.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="PauseTitle" type="Label" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.9, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.3, 0.7, 1, 0.8)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 36
+text = "♪ PAUSED ♪"
+horizontal_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="PauseMenu/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "▶ RESUME"
+
+[node name="MenuButton" type="Button" parent="PauseMenu/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.95, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "◄ MAIN MENU"
+
+[node name="GameOverScreen" parent="." instance=ExtResource("4_gameover")]
+layout_mode = 1
+
+[connection signal="draw" from="BackgroundLayer/ParticleContainer" to="BackgroundLayer" method="_on_particle_container_draw"]
+[connection signal="draw" from="BackgroundLayer/CenterCircle" to="BackgroundLayer" method="_on_center_circle_draw"]
+[connection signal="draw" from="BackgroundLayer/AmbientEffects" to="BackgroundLayer" method="_on_ambient_effects_draw"]
+[connection signal="draw" from="GameplayLayer/EnemySpawnZones" to="GameplayLayer" method="_on_enemy_spawn_zones_draw"]
+[connection signal="draw" from="GameplayLayer/BulletContainer" to="GameplayLayer" method="_on_bullet_container_draw"]
+[connection signal="draw" from="GameplayLayer/BeatIndicators" to="GameplayLayer" method="_on_beat_indicators_draw"]
+[connection signal="draw" from="UI/GameUI/FrequencyIndicator" to="GameplayLayer" method="_on_frequency_indicator_draw"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/ResumeButton" to="." method="_on_pause_resume_pressed"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/MenuButton" to="." method="_on_pause_menu_pressed"]

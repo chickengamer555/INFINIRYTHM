@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bhxfjxh7jjb4a"
+path="res://.godot/imported/SpotiDown.App - Daijokay - Pacific Purgatory.mp3-ce3ccf7cd06f74b53f94f076dd6bdab6.mp3str"
+
+[deps]
+
+source_file="res://assets/SpotiDown.App - Daijokay - Pacific Purgatory.mp3"
+dest_files=["res://.godot/imported/SpotiDown.App - Daijokay - Pacific Purgatory.mp3-ce3ccf7cd06f74b53f94f076dd6bdab6.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4
